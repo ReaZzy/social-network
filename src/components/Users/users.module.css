@@ -1,0 +1,98 @@
+.title {
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+.img {
+    float:left;
+    width: 50px;
+    margin-top: 3px;
+    margin-left: 10px;
+    border-radius: 15px;
+
+}
+
+.description {
+    margin-top: 7px;
+    margin-left: 70px;
+
+}
+.name {
+    padding-top: 20px;
+    margin-left: 70px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.user {
+    border-bottom: 1px solid rgba(28, 27, 27, 0.24);
+    margin-bottom: 20px;
+    max-width: 580px;
+
+}
+.button{
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: -50px;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition-duration: 0.15s;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin-top: -51px;
+}
+.button:hover {
+    background-color: #008CBA; /* Green */
+    color: white;
+}
+a{
+    color: #000000;
+    text-decoration: none;
+}
+.currentPage{
+    font-weight: bold;
+    background-color: #4975a7;
+    color: #ebecee;
+}
+
+.listPage span{
+    cursor:pointer;
+    border: 1px solid;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin-right: 10px;
+    font-size: 20px;
+    display: inline-block;
+    margin-top: 100px;
+}
+.listPage{
+    cursor:pointer;
+    margin-right: 10px;
+    font-size: 20px;
+    display: inline-block;
+}
+.usersss{
+
+    overflow-y: scroll;
+    height: 650px;
+}
+.loading{
+    display: block;
+    position: absolute;
+    top:160px; right:930px ;
+    margin-left: 250px;
+    margin-right: auto;
+    width: 100px;
+}
+
+.button:disabled{
+    background-color: #4c4f53;
+}

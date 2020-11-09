@@ -1,38 +1,386 @@
-.App {
+body {
+  background-color: #edeef0;
+}
+
+.app-wrapper {
+  padding-top: 15px;
+  margin: 0 auto;
+  display: grid;
+  max-width: 50%;
+  grid-template-areas:
+    "n c";
+  grid-template-rows: 1fr;
+  grid-template-columns: 2fr 10fr;
+  grid-gap: 15px;
+}
+
+
+
+a {
+  text-decoration: none;
+}
+.yes {
+  margin-left: 130px;
+}
+
+.yes img{
+  float:right;
+  margin-right: -12px;
+}
+.no div{
+  color: #edeef0;
+  margin-right: 130px;
+  padding-left: 10px;
+
+}
+
+
+.no img{
+  margin-left: -10px;
+}
+
+
+.yes div{
+  color:  #567a9e ;
+  padding-left: 10px;
+  border: 2px solid #567a9e;
+  background-color: #edeef0;
+
+}
+
+
+
+/*!
+ * # Semantic UI 2.4.1 - Button
+ * http://github.com/semantic-org/semantic-ui/
+ *
+ *
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ *
+ */
+.ui.button {
+  cursor: pointer;
+  display: inline-block;
+  min-height: 1em;
+  outline: 0;
+  border: none;
+  vertical-align: baseline;
+  background: #e0e1e2 none;
+  color: rgba(0, 0, 0, .6);
+  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  margin: 0 .25em 0 0;
+  padding: .78571429em 1.5em .78571429em;
+  text-transform: none;
+  text-shadow: none;
+  font-weight: 700;
+  line-height: 1em;
+  font-style: normal;
   text-align: center;
+  text-decoration: none;
+  border-radius: .28571429rem;
+  -webkit-box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, .15) inset;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, .15) inset;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: opacity .1s ease, background-color .1s ease, color .1s ease, background .1s ease, -webkit-box-shadow .1s ease;
+  transition: opacity .1s ease, background-color .1s ease, color .1s ease, box-shadow .1s ease, background .1s ease, -webkit-box-shadow .1s ease;
+  -webkit-tap-highlight-color: transparent
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ui.button:hover {
+  background-color: #cacbcd;
+  background-image: none;
+  -webkit-box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, .15) inset;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, .15) inset;
+  color: rgba(0, 0, 0, .8)
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ui.button:hover .icon {
+  opacity: .85
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.ui.button:focus {
+  background-color: #cacbcd;
+  color: rgba(0, 0, 0, .8);
+  background-image: '' !important;
+  -webkit-box-shadow: '' !important;
+  box-shadow: '' !important
 }
 
-.App-link {
-  color: #61dafb;
+.ui.button:focus .icon {
+  opacity: .85
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ui.active.button:active,
+.ui.button:active {
+  background-color: #babbbc;
+  background-image: '';
+  color: rgba(0, 0, 0, .9);
+  -webkit-box-shadow: 0 0 0 1px transparent inset, none;
+  box-shadow: 0 0 0 1px transparent inset, none
+}
+
+.ui.active.button {
+  background-color: #c0c1c2;
+  background-image: none;
+  -webkit-box-shadow: 0 0 0 1px transparent inset;
+  box-shadow: 0 0 0 1px transparent inset;
+  color: rgba(0, 0, 0, .95)
+}
+
+.ui.active.button:hover {
+  background-color: #c0c1c2;
+  background-image: none;
+  color: rgba(0, 0, 0, .95)
+}
+
+.ui.active.button:active {
+  background-color: #c0c1c2;
+  background-image: none
+}
+
+.ui.loading.loading.loading.loading.loading.loading.button {
+  position: relative;
+  cursor: default;
+  text-shadow: none !important;
+  color: transparent !important;
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transition: all 0s linear, opacity .1s ease;
+  transition: all 0s linear, opacity .1s ease
+}
+
+.ui.loading.button:before {
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: 50%;
+  margin: -.64285714em 0 0 -.64285714em;
+  width: 1.28571429em;
+  height: 1.28571429em;
+  border-radius: 500rem;
+  border: .2em solid rgba(0, 0, 0, .15)
+}
+
+.ui.loading.button:after {
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: 50%;
+  margin: -.64285714em 0 0 -.64285714em;
+  width: 1.28571429em;
+  height: 1.28571429em;
+  -webkit-animation: button-spin .6s linear;
+  animation: button-spin .6s linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  border-radius: 500rem;
+  border-color: #fff transparent transparent;
+  border-style: solid;
+  border-width: .2em;
+  -webkit-box-shadow: 0 0 0 1px transparent;
+  box-shadow: 0 0 0 1px transparent
+}
+
+
+
+.ui.comments:first-child {
+  margin-top: 0
+}
+
+.ui.comments:last-child {
+  margin-bottom: 0
+}
+
+.ui.comments .comment {
+  position: relative;
+  background: 0 0;
+  margin: .5em 0 0;
+  padding: .5em 0 0;
+  border: none;
+  border-top: none;
+  line-height: 1.2
+}
+
+.ui.comments .comment:first-child {
+  margin-top: 0;
+  padding-top: 0
+}
+
+.ui.comments .comment .comments {
+  margin: 0 0 .5em .5em;
+  padding: 1em 0 1em 1em
+}
+
+.ui.comments .comment .comments:before {
+  position: absolute;
+  top: 0;
+  left: 0
+}
+
+.ui.comments .comment .comments .comment {
+  border: none;
+  border-top: none;
+  background: 0 0
+}
+
+.ui.comments .comment .avatar {
+  display: block;
+  width: 2.5em;
+  height: auto;
+  float: left;
+  margin: .2em 0 0
+}
+
+.ui.comments .comment .avatar img,
+.ui.comments .comment img.avatar {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  border-radius: .25rem
+}
+
+.ui.comments .comment>.content {
+  display: block
+}
+
+.ui.comments .comment>.avatar~.content {
+  margin-left: 3.5em
+}
+
+.ui.comments .comment .author {
+  font-size: 1em;
+  color: rgba(0, 0, 0, .87);
+  font-weight: 700
+}
+
+.ui.comments .comment a.author {
+  cursor: pointer
+}
+
+.ui.comments .comment a.author:hover {
+  color: #1e70bf
+}
+
+.ui.comments .comment .metadata {
+  display: inline-block;
+  margin-left: .5em;
+  color: rgba(0, 0, 0, .4);
+  font-size: .875em
+}
+
+.ui.comments .comment .metadata>* {
+  display: inline-block;
+  margin: 0 .5em 0 0
+}
+
+.ui.comments .comment .metadata>:last-child {
+  margin-right: 0
+}
+
+.ui.comments .comment .text {
+  margin: .25em 0 .5em;
+  font-size: 1em;
+  word-wrap: break-word;
+  color: rgba(0, 0, 0, .87);
+  line-height: 1.3
+}
+
+.ui.comments .comment .actions {
+  font-size: .875em
+}
+
+.ui.comments .comment .actions a {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 .75em 0 0;
+  color: rgba(0, 0, 0, .4)
+}
+
+.ui.comments .comment .actions a:last-child {
+  margin-right: 0
+}
+
+.ui.comments .comment .actions a.active,
+.ui.comments .comment .actions a:hover {
+  color: rgba(0, 0, 0, .8)
+}
+
+.ui.comments>.reply.form {
+  margin-top: 1em
+}
+
+.ui.comments .comment .reply.form {
+  width: 100%;
+  margin-top: 1em
+}
+
+.ui.comments .reply.form textarea {
+  font-size: 1em;
+  height: 12em
+}
+
+.ui.collapsed.comments,
+.ui.comments .collapsed.comment,
+.ui.comments .collapsed.comments {
+  display: none
+}
+
+.ui.threaded.comments .comment .comments {
+  margin: -1.5em 0 -1em 1.25em;
+  padding: 3em 0 2em 2.25em;
+  -webkit-box-shadow: -1px 0 0 rgba(34, 36, 38, .15);
+  box-shadow: -1px 0 0 rgba(34, 36, 38, .15)
+}
+
+.ui.minimal.comments .comment .actions {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  -webkit-transition: opacity .2s ease;
+  transition: opacity .2s ease;
+  -webkit-transition-delay: .1s;
+  transition-delay: .1s
+}
+
+.ui.minimal.comments .comment>.content:hover>.actions {
+  opacity: 1
+}
+
+.ui.mini.comments {
+  font-size: .78571429rem
+}
+
+.ui.tiny.comments {
+  font-size: .85714286rem
+}
+
+.ui.small.comments {
+  font-size: .92857143rem
+}
+
+.ui.comments {
+  font-size: 1rem
+}
+
+.ui.large.comments {
+  font-size: 1.14285714rem
+}
+
+.ui.big.comments {
+  font-size: 1.28571429rem
+}
+
+.ui.huge.comments {
+  font-size: 1.42857143rem
+}
+
+.ui.massive.comments {
+  font-size: 1.71428571rem
 }
