@@ -1,0 +1,21 @@
+.content{
+    grid-area: c;
+}
+.content img {
+    max-width: 100%;
+}
+
+.pic {
+    margin-left: 10px;
+    margin-top: 20px;
+    float: left;
+    margin-bottom: 10px;
+    border-radius: 20px;
+}
+
+.text {
+    float: left;
+    margin-left: 20px;
+}
+
+

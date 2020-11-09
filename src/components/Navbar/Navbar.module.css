@@ -1,0 +1,29 @@
+.line {
+  margin-top: 9px;
+  padding-top: 9px;
+}
+
+nav {
+  margin: -8px;
+  padding-top: 62px;
+
+}
+
+nav a {
+  text-decoration: none;
+  grid-area: n;
+  font-size: 20px;
+  color: #567a9e;
+}
+
+nav a:hover {
+  color: #567a9e;
+  text-shadow: 0px 0px 1px #10457a;
+
+  transition: all 0.1s ease;
+}
+
+.active{
+  color: #567a9e;
+  text-shadow: 0px 0px 1px #10457a;
+}
