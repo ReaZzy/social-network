@@ -7,8 +7,7 @@ let initialState = {
 }
 
 const navbarReducer = (state = initialState, action) => {
-    let statecopy = {...state}
-    return statecopy
+    return {...state}
 }
 
 export default navbarReducer

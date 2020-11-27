@@ -2,6 +2,7 @@ import React from 'react';
 import s from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
 import DefaultUserImg from "./../../../media/images/user.png"
+import ProfileStatus from "./ProfileStatus";
 
 const ProfileInfo = (props) => {
     if (!props.profileInfo){
@@ -18,6 +19,8 @@ const ProfileInfo = (props) => {
             />
             <div className={s.text}>
                 <h2>{props.profileInfo.fullName !==null ? props.profileInfo.fullName : "‎"}</h2>
+                <ProfileStatus isAuth = {props.isAuth} status = {props.status} updateStatus = {props.updateStatus} userId = {props.userId}/>
+                <br/>
                 <b>Instagram</b> : {props.profileInfo.contacts.instagram !==null ? props.profileInfo.contacts.instagram: "‎"}
                 <br/>
                 <b>Facebook</b> : {props.profileInfo.contacts.facebook !==null ? props.profileInfo.contacts.facebook: "‎"}

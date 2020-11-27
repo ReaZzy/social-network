@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 const FriendsNav = (props) =>{
     return(
         <div className={s.friends}>
-            <NavLink to={"/friends/" + props.id}>
+            <NavLink to={"/friends/" + props.id} >
                 <img src={props.img} alt='' className={s.img}/>
             </NavLink>
         </div>

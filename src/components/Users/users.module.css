@@ -46,9 +46,10 @@
     padding-top: 6px;
     padding-bottom: 6px;
     margin-top: -51px;
+
 }
 .button:hover {
-    background-color: #008CBA; /* Green */
+    background-color: #4975a7; /* Green */
     color: white;
 }
 a{
@@ -94,5 +95,16 @@ a{
 }
 
 .button:disabled{
-    background-color: #4c4f53;
+    opacity: 0.6;
+}
+.unfollow{
+    background-color: #757b84;
+}
+
+.chatButton{
+    position: absolute;
+    margin-left: 510px;
+    background-color: #4975a7;
+    padding-left: 5px;
+    padding-right: 5px;
 }

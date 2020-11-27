@@ -13,21 +13,26 @@
     border-top-right-radius: 15px;
     margin-right: 10px;
     margin-bottom: 10px;
+    float: right;
 
 }
 
-.messages img {
-    margin-top: -9px;
-
+a {
+    text-decoration: none;
+}
+.yes {
+    margin-left: 130px;
 }
 
-.img{
+.yes img{
+    float:right;
+    margin-right: -12px;
+}
+.yes div{
+    color:  #567a9e ;
+    padding-left: 10px;
     border: 2px solid #567a9e;
-    border-radius: 17px;
-    max-width: 35px;
-    min-width: 25px;
-    margin-right: 10px;
-    float:left;
-
+    background-color: #edeef0;
 
 }
+

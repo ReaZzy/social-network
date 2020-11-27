@@ -2,19 +2,25 @@ import React from "react";
 import s from './Dialogs.module.css';
 import Dialog from "./Dialogs/Dialog";
 import Message from "./Messages/Message";
+import SendMessageForm from "./sendMessageForm";
+import Preloader from "../common/Preloader/Preloader";
 
 const Dialogs = (props) => {
-    let dialogsElements = props.dialogs.map(dialog => <Dialog name = {dialog.name} id = {dialog.id} img = {dialog.img}/>)
-    let messagesElements = props.messages.map(message => <Message message = {message.message} img={message.img} my = {message.my}/>)
+    if (props.dialogsLoading){
+        return <Preloader/>
+    }
+    if (props.messagesLoading){
+        return <Preloader/>
+    }
+    let dialogsElements = props.dialogs.map(dialog => <Dialog id = {dialog.id} userName ={dialog.userName} getMessagesList ={props.getMessagesList} messages = {props.messages}/>)
+    let messagesElements = props.messages.map(message => <Message message = {message.body} key = {message.id}/>)
 
-    let sendMessage = () => {
-        props.sendMessage()
+    const onSubmit = (formData) =>{
+        let userId = props.match.params.userId
+        props.sendMessage(userId, formData.message)
+        props.getMessagesList(userId)
     }
 
-    let onMessageChange = (e) => {
-        let text = e.target.value
-        props.onMessageChange(text)
-    }
 
     return (
         <div className={s.content}>
@@ -27,8 +33,8 @@ const Dialogs = (props) => {
                 <div className={s.messag}>
                 { messagesElements }</div>
                 <div className={s.but}>
-                    <textarea rows="3" cols = "50" className={s.textarea} onChange={onMessageChange} value = {props.newMText}/>
-                    <span className={s.butt}><button className={s.button} onClick={ sendMessage }>Send</button></span>
+
+                    <SendMessageForm onSubmit ={onSubmit}/>
 
                 </div>
             </div>

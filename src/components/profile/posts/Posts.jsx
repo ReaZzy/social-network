@@ -1,11 +1,12 @@
 import React from "react";
 import s from "./Posts.module.css";
 import Post from "./post/Post";
+import PostFormRedux from "./PostForm";
 
 
-const Posts = (props) => {
+const Posts = React.memo(props => {
 
-    let postsElemets = props.data.map(post => {
+    let postsElemets = [...props.data].reverse().map(post => {
         return (
             <Post
                 author_image={post.author_image}
@@ -16,32 +17,19 @@ const Posts = (props) => {
             />
         )
     })
-
-    let discard = () => {
-        props.discard()
+    let onSubmit = (formData) => {
+        props.addPost(formData.postMessage)
+        formData.postMessage = ""
     }
-    let addPost = () => {
-        props.addPost()
-    }
-    let onPostChange = (e) => {
-        let text = e.target.value
-        props.onPostChange(text)
-    }
-
     return (
         <div className={s.content}>
             <h3 className={s.text}>Leave your comment here</h3>
-            <textarea className={s.textarea} rows="3" cols="110" value={props.newPostText} onChange={ onPostChange } />
-            <p className={s.cominput}>
-                <button className="ui tiny primary button" onClick={ addPost } >Save</button>
-                <button className="ui tiny button" onClick={discard}>Discard</button>
-            </p>
-
+            <PostFormRedux onSubmit={onSubmit}/>
             <div className="ui comments">
                 {postsElemets}
             </div>
         </div>
     );
-};
+})
 
 export default Posts;

@@ -2,7 +2,6 @@ import React from "react";
 import s from "./users.module.css";
 import {NavLink} from "react-router-dom";
 import DefaultUserImg from "../../media/images/user.png";
-import {follow, unfollow} from "../../dal/api";
 
 const Users = (props) => {
     let pagesCount = Math.ceil(props.totalCount / props.count)
@@ -18,7 +17,7 @@ const Users = (props) => {
 
             <div className={s.usersss}>
                 {
-                    props.users.map(u => <div>
+                    props.users.map(u =>  <div key = {u.id}>
                         <div className={s.user}>
                             <NavLink to={"/profile/" + u.id}> <img src={u.photos.small !== null
                                 ? u.photos.small
@@ -30,27 +29,14 @@ const Users = (props) => {
                             <div className={s.description}>
                                 <p>{u.status !== "" ? u.status : "‎"}</p>
                             </div>
+                            <div>
+                                <NavLink to = {`messages/` + u.id} className={s.button + " " + s.chatButton}>Chat</NavLink>
+                            </div>
                             {u.followed
-                                ? <button className={s.button} disabled={props.followLoading.some(id => id === u.id)}  onClick={() => {
-                                    props.setFollowLoading(true, u.id)
-                                    follow(u.id).then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.setFollowLoading(false, u.id)
-                                            props.unfollow(u.id)
-                                        }
-                                    })
-                                }}>Unfollow</button>
-                                : <button className={s.button} disabled={props.followLoading.some(id => id === u.id)} onClick={() => {
-                                    props.setFollowLoading(true, u.id)
-                                    unfollow(u.id).then(data => {
-                                        if (data.resultCode === 0) {
-                                            props.setFollowLoading(false, u.id)
-                                            props.follow(u.id)
-                                        }
-                                    })
-                                }}>Follow</button>}
+                                ? <button className={s.button + " " + s.unfollow} disabled={props.followLoading.some(id => id === u.id)} onClick={() => {props.setUnfollow(u.id)}}>Unfollow</button>
+                                : <button className={s.button} disabled={props.followLoading.some(id => id === u.id)} onClick={() => {props.setFollow(u.id)}}>Follow</button>}
                         </div>
-                    </div>)
+                     </div> )
                 }
             </div>
 
@@ -60,9 +46,9 @@ const Users = (props) => {
             <div className={s.listPage}>
                 {
                     page.slice(0, 15).map(p => {
-                        return <span className={props.currentPage === p && s.currentPage}
+                        return <span key = {p} className={props.currentPage === p && s.currentPage}
                                      onClick={() => {
-                                         props.setPageUsers(p)
+                                         props.setPageUsers(7, p)
                                      }}
                         >{p}</span>
                     })

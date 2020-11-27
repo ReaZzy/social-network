@@ -1,0 +1,66 @@
+
+.textareaDialogs{
+    width: 367px;
+    float: left;
+    resize: none;
+    margin: 10px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.error {
+    border: 1px solid #f44336
+}
+.alert {
+    position: absolute;
+    padding: 20px 21px 21px 20px;
+    margin-top: 86px;
+    width: 547px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+
+}
+
+.TextareaProfile {
+    box-sizing: border-box;
+    padding: 10px;
+    resize: none;
+}
+
+.alertProfile {
+    position: absolute;
+    padding: 15px 16px 16px 15px;
+    margin-top: 0px;
+    width: 547px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+
+}
+
+.input {
+    width: 60%;
+    padding: 12px 20px;
+    margin-right: -40px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+
+}
+.input[type=text]:focus {
+    border: 3px solid #555;
+}
+
+.alertLogin {
+    position: absolute;
+    padding: 5px;
+    margin-left: 278px;
+    margin-top: -20px;
+    background-color: #f44336; /* Red */
+    color: white;
+}
+.textareaTodo{
+
+    width: 800px;
+}

@@ -10,13 +10,13 @@
     color: #567a9e;
     border-right: 2px solid;
     border-left: 2px solid;
-    padding-left: 20px;
+    padding-left: 23px;
     width: 200px;
     margin-right: 0px;
     border-bottom: 2px solid #567a9e;
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 561px;
+    max-height: 577px;
 }
 
 .title {
@@ -26,7 +26,7 @@
     margin-top: -10px;
     font-weight: bold;
     font-size: 20px;
-    padding-left: 73px;
+    padding-left: 75px;
     border-top: 2px solid;
     border-bottom: 2px solid;
     margin-left: -21px;
@@ -37,20 +37,11 @@
     margin-top: 0px;
 }
 
-.textarea {
-    width: 367px;
-    float: left;
-    resize: none;
-    margin: 10px;
-    border-radius: 8px;
-}
-
 .but {
     width: 576px;
     background-color: #567a9e;
     float: right;
     padding-right: 12px;
-
 
 }
 
@@ -66,6 +57,7 @@
     border: 2px solid #567a9e;
     border-radius: 8px;
     transition-duration: 0.1s;
+    height: 68px;
 }
 
 .button:hover {

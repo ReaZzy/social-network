@@ -3,11 +3,11 @@ import s from "./Message.module.css"
 
 const Message = (props) => {
     return(
-        <div className={props.my}>
+        <div className={s.yes}>
         <div className={s.messages}>
 
             <img className={s.img} src ={props.img} alt='' />
-            <span className={s.mes }>{props.message !== "" ? props.message : "‎"}</span>
+            <span className={s.mes }>{props.message}</span>
 
         </div>
         </div>
