@@ -22,14 +22,11 @@ class UsersAPI extends React.Component {
         this.props.setUsersPage(this.props.users.length, this.props.count, this.props.currentPage)
     }
 
-    leftArrow = (p) => {if (p > 1) {this.props.setPageU(7,p - 1)}}
-    rightArrow = (p, pc) => {if (p < pc) {this.props.setPageU(7,p + 1)}}
-
     render() {
         return (<>
                 {this.props.isLoading
                     ? <Preloader/>
-                    : <Users leftArrow={this.leftArrow} rightArrow={this.rightArrow} totalCount={this.props.totalCount}
+                    : <Users totalCount={this.props.totalCount}
                              count={this.props.count} users={this.props.users} currentPage={this.props.currentPage}
                              setPageUsers={this.props.setPageU}
                              isLoading={this.props.isLoading}

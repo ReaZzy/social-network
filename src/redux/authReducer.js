@@ -40,22 +40,19 @@ export const setUserInfo = (info) => ({type: SET_USER_INFO, info})
 const setLoading = (boolean) => ({type: SET_LOADING, boolean})
 const setAuth = (boolean) => ({type: SET_AUTH, boolean})
 
-export const setUser = (id = 1225) => (dispatch) => {
-    getLogin().then(data =>{
-        if (data.resultCode === 0){
-            let {id, email, login} = data.data
-            dispatch(setUserData(id, email, login))
+export const setUser = (id = 1225) => async (dispatch) => {
+    let data = await getLogin()
+    if (data.resultCode === 0){
+        let {id, email, login} = data.data
+        dispatch(setUserData(id, email, login))
 
-            getLoginInfo(id).then(response =>{
-                dispatch(setUserInfo(response.data))
-            })
-        }
-    })
-}
+        let response = await getLoginInfo(id)
+        dispatch(setUserInfo(response.data))
+}}
 
-export const setLogin = (email, password, rememberMe) => (dispatch) => {
+export const setLogin = (email, password, rememberMe) => async (dispatch) => {
     dispatch(setLoading(true))
-    loginAPI(email, password, rememberMe).then(response=>{
+    let response = await  loginAPI(email, password, rememberMe)
          if(response.data.resultCode === 0){
              dispatch(setLoading(false))
              dispatch(setAuth(true))
@@ -65,18 +62,15 @@ export const setLogin = (email, password, rememberMe) => (dispatch) => {
              dispatch(reset("login"))
              let message = response.data.messages.length > 0 ? response.data.messages[0]: "Server problem"
              dispatch(stopSubmit("login", {_error:message}))
-
         }
-    })
 }
 
-export const exit = () => (dispatch) =>{
-    exitAPI().then(response=>{
+export const exit = () => async (dispatch) =>{
+    let response = await exitAPI()
         if(response.data.resultCode === 0){
             dispatch(setAuth(false))
             window.location.reload()
         }
-    })
 }
 export default authReducer
 

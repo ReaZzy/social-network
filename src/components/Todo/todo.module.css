@@ -21,3 +21,20 @@ textarea{
     color: #edeef0;
     border: none;
 }
+.done{
+    background-color: #4CAF50;
+    border-radius: 10px;
+    color: #edeef0;
+}
+.id{
+    padding-right: 10px;
+}
+.butCancel{
+    background-color: rgb(73, 117, 167);color: #edeef0;
+    border-radius: 10px;
+    border: none;
+
+}
+.ul{
+    list-style: none;
+}

@@ -6,17 +6,19 @@ import SendMessageForm from "./sendMessageForm";
 import Preloader from "../common/Preloader/Preloader";
 
 const Dialogs = (props) => {
+    let userId = props.match.params.userId
+
     if (props.dialogsLoading){
         return <Preloader/>
     }
-    if (props.messagesLoading){
+    if (props.messageLoading){
+
         return <Preloader/>
     }
     let dialogsElements = props.dialogs.map(dialog => <Dialog id = {dialog.id} userName ={dialog.userName} getMessagesList ={props.getMessagesList} messages = {props.messages}/>)
     let messagesElements = props.messages.map(message => <Message message = {message.body} key = {message.id}/>)
 
     const onSubmit = (formData) =>{
-        let userId = props.match.params.userId
         props.sendMessage(userId, formData.message)
         props.getMessagesList(userId)
     }

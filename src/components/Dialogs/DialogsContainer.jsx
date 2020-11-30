@@ -11,8 +11,9 @@ class DialogsContainer extends React.Component{
         let userId = this.props.match.params.userId
         if (userId){
             this.props.startDialog(userId)
-            this.props.getMessagesList()
+            this.props.getMessagesList(userId)
         }
+
         if (this.props.dialogs.length < 1) {
             this.props.getDialogsPage()
         }
@@ -20,7 +21,7 @@ class DialogsContainer extends React.Component{
     }
     render() {
         return <Dialogs {...this.props} messages = {this.props.messages} dialogs = {this.props.dialogs} dialogsLoading ={this.props.dialogsLoading}
-                        getMessagesList = {this.props.getMessagesList} userId = {this.props.userId}
+                        getMessagesList = {this.props.getMessagesList} userId = {this.props.userId} messageLoading={this.props.messageLoading}
         />
     }
 }
@@ -30,7 +31,7 @@ let mapStateToProps = (state) => {
         messages: state.dialogsPage.messageData,
         dialogs: state.dialogsPage.dialogsData,
         dialogsLoading: state.dialogsPage.dialogsLoading,
-        messagesLoading: state.dialogsPage.messagesLoading,
+        messageLoading: state.dialogsPage.messageLoading,
     }
 }
 

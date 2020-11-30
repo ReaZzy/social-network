@@ -1,5 +1,9 @@
 body {
   background-color: #edeef0;
+  outline: 0
+}
+button{
+  outline: 0
 }
 
 .app-wrapper {

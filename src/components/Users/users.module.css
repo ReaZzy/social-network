@@ -43,8 +43,8 @@
     text-decoration: none;
     font-size: 16px;
     transition-duration: 0.15s;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     margin-top: -51px;
 
 }
@@ -57,28 +57,26 @@ a{
     text-decoration: none;
 }
 .currentPage{
+    color: #ebecee;
     font-weight: bold;
     background-color: #4975a7;
-    color: #ebecee;
 }
 
-.listPage span{
+.listPage{
     cursor:pointer;
     border: 1px solid;
     padding-left: 6px;
     padding-right: 6px;
     padding-top: 6px;
     padding-bottom: 6px;
-    margin-right: 10px;
     font-size: 20px;
     display: inline-block;
-    margin-top: 100px;
-}
-.listPage{
-    cursor:pointer;
+    margin-top: 40px;
     margin-right: 10px;
-    font-size: 20px;
-    display: inline-block;
+    justify-content: space-between;
+    width: 3%;
+
+
 }
 .usersss{
 
@@ -102,7 +100,8 @@ a{
 }
 
 .chatButton{
-    position: absolute;
+    padding-top: 4px;
+    margin-right: 25px;
     margin-left: 510px;
     background-color: #4975a7;
     padding-left: 5px;

@@ -4,6 +4,7 @@ import {reset} from "redux-form";
 const ADD_POST = "ADD-POST"
 const SET_PROFILE = "SET_PROFILE"
 const SET_STATUS = "SET_STATUS"
+const DELETE_POST = "DELETE_POST"
 
 let initialState = {
         postData : [
@@ -79,6 +80,10 @@ const profileReducer = (state=initialState, action) => {
         case SET_STATUS: {
             return {...state, status: action.status}
         }
+        case DELETE_POST: {
+            // eslint-disable-next-line
+            return {...state, postData: state.postData.filter(id=> id.id != action.id)}
+        }
         default: {
             return state
         }
@@ -90,29 +95,27 @@ const profileReducer = (state=initialState, action) => {
 export const addPost1 =(postText)=> ({type: ADD_POST, postText})
 export const setProfile = (profileInfo) => ({type: SET_PROFILE, profileInfo})
 export const setStatus = (status) => ({type: SET_STATUS, status})
-
+export const deletePost = (id) => ({type: DELETE_POST, id})
 export const getStatus = (userId) => (dispatch) =>{
     getStatusAPI(userId).then(response =>{
         dispatch(setStatus(response.data))
     })
 }
 
-export const updateStatus = (status) => (dispatch) =>{
-    updateStatusAPI(status).then(response =>{
-        if(response.data.resultCode === 0){
-            dispatch(setStatus(status))
-        }
-    })
+export const updateStatus = (status) =>  async (dispatch) =>{
+    let response = await  updateStatusAPI(status)
+    if(response.data.resultCode === 0){
+        dispatch(setStatus(status))
+    }
 }
 
 
-export const getProfile = (userId) => (dispatch) =>{
-    getProfileInfo(userId).then(response =>{
-        dispatch(setProfile(response.data))
-    })
+export const getProfile = (userId) => async (dispatch) =>{
+    let response = await getProfileInfo(userId)
+    dispatch(setProfile(response.data))
 }
 
-export const addPost = (postText) => (dispatch) =>{
+export const addPost = (postText) =>  (dispatch) =>{
     dispatch(addPost1(postText))
     dispatch(reset('postForm'))
 }

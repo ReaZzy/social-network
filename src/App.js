@@ -1,19 +1,22 @@
 import React from "react";
 import "./App.css";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import NavbarContainer from "./components/Navbar/NavbarContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/profile/ProfileContainer";
 import HeaderContainer from "./components/header/headerContainer";
 import Login from "./components/Login/Login";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {get_initialize} from "./redux/appReducer";
-import Todo from "./components/Todo/Todo";
+import Preloader from "./components/common/Preloader/Preloader";
+
+
+const UsersContainer = React.lazy(()=>import("./components/Users/UsersContainer"))
+const ProfileContainer = React.lazy(()=>import("./components/profile/ProfileContainer"))
+const DialogsContainer = React.lazy(()=>import("./components/Dialogs/DialogsContainer"))
+const Todo = React.lazy(()=>import("./components/Todo/Todo"))
 
 
 class App extends React.Component{
@@ -26,17 +29,21 @@ class App extends React.Component{
             <div className="app-wrapper">
               <NavbarContainer/>
               {/*Main*/}
-              <Route path="/profile/:userId?" render={ () => <ProfileContainer store = {this.props.store}/> } />
-              <Route path="/messages/:userId?" render={ () => <DialogsContainer/> } />
-              <Route path="/users" render={ () => <UsersContainer/> } />
-              <Route path="/login" render={() => <Login/>}/>
-              <Route path="/todo" render = {()=><Todo/>}/>
+              <Switch>
+              <React.Suspense fallback={<Preloader/>}>
+                <Route path="/profile/:userId?" render={ () => <ProfileContainer store = {this.props.store}/> } />
+                <Route path="/messages/:userId?" render={ () => <DialogsContainer/> } />
+                <Route path="/users" render={ () => <UsersContainer/> } />
+                <Route path="/todo" render = {()=><Todo/>}/>
 
+                {/*Other*/}
 
-              {/*Other*/}
-              <Route path="/news" render={() => <News />} />
-              <Route path="/music" render={() => <Music />} />
-              <Route path="/settings" render={() => <Settings />} />
+                <Route path="/news" render={() => <News />} />
+                <Route path="/music" render={() => <Music />} />
+                <Route path="/settings" render={() => <Settings />} />
+                <Route path="/login" render={() => <Login/>}/>
+              </React.Suspense>
+              </Switch>
             </div>
           </div>
         </BrowserRouter>

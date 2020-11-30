@@ -1,57 +1,60 @@
 import * as React from "react";
 import TodoForm from "./Todoform";
-import {addTodo, setCompleted} from "../../redux/todoReducer";
-import {connect} from "react-redux";
-import {getTodoItems} from "../../redux/todoselecctor";
 import s from "./todo.module.css"
-
-const setCompletedTodo = (id) => {
-    setCompleted(id)
-}
-
-const styles = {
-    input: {
-        marginRight: "0px",
-    },
-    id: {
-        marginRight: "10px",
-    },
-}
+import {useEffect, useState} from "react";
 
 const Todo = (props) => {
-    let onSubmit = (formData) => {
-        props.addTodo(formData.todoItem, false, props.todoItems.length + 1)
-        formData.todoItem = ""
+    let [todos, setTodos] = useState([])
+
+    const setCompleted = (id) =>{
+        setTodos(todos.map(todo=>{
+            if(todo.id === id){
+                todo.completed = !todo.completed
+            }
+            return todo
+        }))
+    }
+    useEffect(()=>{
+        fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
+            .then(response => response.json())
+            .then(todos => setTodos(todos))
+    }, [])
+
+    const removeTodo = (id) =>{
+        setTodos( todos.filter(todo => todo.id !== id) )
     }
 
+    let onSubmit = (formData) => {
+        setTodos(todos.concat([{id: todos.length + 1, completed: false, title : formData.todoItem, }]))
+        formData.todoItem = ""
+        console.log(todos)
+    }
     return (
         <div>
             <h1>TODO LIST</h1>
             <div>
                 <TodoForm {...props} onSubmit = {onSubmit}/>
+                <ul className={s.ul}>
                 {
-                    [...props.todoItems].reverse().map(item => <>
+                    todos.map((item, index) => <li className={item.completed? s.done : ""}>
                         <div className={s.todoItem}>
-                            <span>
-                            <input type={"checkbox"} style = {styles.input} onChange={()=>console.log(item.id)}/>
-                            <button onClick={setCompletedTodo(item.id)}>123</button>
+                            <span >
+                            <input type={"checkbox"} checked={item.completed} onChange={() => {setCompleted(item.id)}} />
                             &nbsp;
-                            <strong style={styles.id}>{item.id}</strong>
-                            {item.text}
+                            <strong className={s.id}>{index+1}</strong>
+                            {item.title}
                             </span>
-                            <button>&times;</button>
+                            <button className={s.butCancel} onClick={() => removeTodo(item.id)}>&times;</button>
                         </div>
-
-                        </>
+                        </li>
                     )
                 }
+                </ul>
             </div>
 
         </div>
     )
 }
 
-let mapStateToProps = (state) => ({
-    todoItems: getTodoItems(state),
-})
-export default connect(mapStateToProps, {addTodo})(Todo)
+
+export default Todo

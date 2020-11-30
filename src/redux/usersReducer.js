@@ -7,11 +7,12 @@ const SET_PAGE_USERS = "SET_PAGE_USERS"
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT"
 const SET_LOADING = "SET_LOADING"
 const SET_FOLLOW_LOADING = "SET_FOLLOW_LOADING"
+const SET_CURRENT_PAGE = "users/SET_CURRENT_PAGE"
 
 let initialState = {
     users: [],
     count: 7,
-    totalCount: 0,
+    totalCount: null,
     currentPage: 1,
     isLoading: true,
     followLoading: []
@@ -63,7 +64,10 @@ const usersReducer = (state = initialState, action) => {
                     ? [...state.followLoading, action.id]
                     : state.followLoading.filter(id => id !== action.id)
             }
-
+        case SET_CURRENT_PAGE:
+            return {
+                ...state, currentPage: action.currentPage
+            }
         default:
             return state
 
@@ -72,50 +76,48 @@ const usersReducer = (state = initialState, action) => {
 
 const follow = (userId) => ({type: FOLLOW, userId})
 const unfollow = (userId) => ({type: UNFOLLOW, userId})
+const setCurrentPage = (currentPage)=> ({type: SET_CURRENT_PAGE, currentPage})
 export const setUsers = (users) => ({type: SET_USERS, users})
 export const setPageUsers = (currentPage) => ({type: SET_PAGE_USERS, currentPage})
 export const setTotalUsersCount = (totalUsers) => ({type: SET_TOTAL_USERS_COUNT, totalUsers})
 export const setLoading = (isLoading) => ({type: SET_LOADING, isLoading})
 export const setFollowLoading = (isFollowLoading, id) => ({type: SET_FOLLOW_LOADING, isFollowLoading, id})
 
-export const setUsersPage = (length, count, currentPage) => (dispatch) => {
+export const setUsersPage = (length, count, currentPage) => async (dispatch) => {
     if (length === 0) {
         dispatch(setLoading(true))
-
-        getUsers(count, currentPage).then(data => {
-            dispatch(setLoading(false))
-            dispatch(setPageUsers(currentPage))
-            dispatch(setUsers(data.items))
-            dispatch(setTotalUsersCount(data.totalCount))
-        })
+        let data = await  getUsers(count, currentPage)
+        dispatch(setLoading(false))
+        dispatch(setCurrentPage(currentPage))
+        dispatch(setPageUsers(currentPage))
+        dispatch(setUsers(data.items))
+        dispatch(setTotalUsersCount(data.totalCount))
     }
 }
-export const setPageU = (count = 7, p) => (dispatch) => {
+export const setPageU = (count = 7, p) => async (dispatch) => {
     dispatch(setPageUsers(p))
     dispatch(setLoading(true))
-    getUsers(count, p).then(data => {
-        dispatch(setLoading(false))
-        dispatch(setUsers(data.items))
-    })
+    let data = await getUsers(count, p)
+    dispatch(setLoading(false))
+    dispatch(setUsers(data.items))
+
 }
 
-export const setFollow = (id) => (dispatch) =>{
+export const setFollow = (id) => async (dispatch) =>{
     dispatch(setFollowLoading(true, id))
-    unfollowAPI(id).then(data => {
-        if (data.resultCode === 0) {
-            dispatch(setFollowLoading(false, id))
-            dispatch(follow(id))
-        }
-    })
+    let data = await unfollowAPI(id)
+    if (data.resultCode === 0) {
+        dispatch(setFollowLoading(false, id))
+        dispatch(follow(id))
+    }
 }
 
-export const setUnfollow = (id) => (dispatch) =>{
+export const setUnfollow = (id) => async (dispatch) =>{
     dispatch(setFollowLoading(true, id))
-    followAPI(id).then(data => {
-        if (data.resultCode === 0) {
-            dispatch(setFollowLoading(false, id))
-            dispatch(unfollow(id))
-        }
-    })
+    let data = await followAPI(id)
+    if (data.resultCode === 0) {
+        dispatch(setFollowLoading(false, id))
+        dispatch(unfollow(id))
+    }
 }
 export default usersReducer
