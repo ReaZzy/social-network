@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {HashRouter, Route, Switch} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -23,7 +23,7 @@ class App extends React.Component{
   render() {
 
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <HashRouter basename={process.env.PUBLIC_URL}>
           <div>
             <HeaderContainer />
             <div className="app-wrapper">
@@ -46,7 +46,7 @@ class App extends React.Component{
               </Switch>
             </div>
           </div>
-        </BrowserRouter>
+        </HashRouter>
     );
   }
 };
