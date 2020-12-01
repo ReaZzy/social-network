@@ -58,7 +58,6 @@ export const getMessagesList = (userId) => async (dispatch) =>{
     let response = await  getMessagesAPI(userId)
     dispatch(getMessages(response.data.items))
     dispatch(messagesLoading(false))
-    console.log(response.data.items)
 }
 export const sendMessage = (userId, body) => async (dispatch) =>{
     await sendMessageAPI(userId, body)

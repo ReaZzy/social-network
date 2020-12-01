@@ -2,14 +2,8 @@
     min-width: 140px;
     margin-top: 6px;
     background-color: #567a9e;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    padding-left: -30px;
-    padding-right: 10px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    padding: 7px 7px 7px 10px;
+    border-radius: 15px;
     margin-right: 10px;
     margin-bottom: 10px;
     float: right;
@@ -37,9 +31,25 @@ a {
 
 }
 
-.yes:hover + .dots{
-    display:block;
+.no {
+    display: inline-block;
+    position: relative;
 }
+
+.no img{
+    float:right;
+    margin-right: 5px;
+}
+.no div{
+    float: left;
+    margin-left: 10px;
+    color:  #567a9e ;
+    padding-left: 10px;
+    border: 2px solid #567a9e;
+    background-color: #edeef0;
+
+}
+
 
 .dots{
     cursor: pointer;

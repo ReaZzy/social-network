@@ -29,7 +29,7 @@ class DialogsContainer extends PureComponent{
     render() {
         return <Dialogs {...this.props} messages = {this.props.messages} dialogs = {this.props.dialogs} dialogsLoading ={this.props.dialogsLoading}
                         getMessagesList = {this.props.getMessagesList} userId = {this.props.userId} messagesLoading={this.props.messagesLoading}
-                        deleteMessage = {this.props.deleteMessage}
+                        deleteMessage = {this.props.deleteMessage} currentUserId = {this.props.currentUserId}
         />
     }
 }
@@ -40,6 +40,7 @@ let mapStateToProps = (state) => {
         dialogs: state.dialogsPage.dialogsData,
         dialogsLoading: state.dialogsPage.dialogsLoading,
         messagesLoading: state.dialogsPage.messagesLoading,
+        currentUserId : state.auth.id,
     }
 }
 

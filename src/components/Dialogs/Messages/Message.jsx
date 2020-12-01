@@ -3,16 +3,18 @@ import s from "./Message.module.css"
 import deletePng from "./../../../media/images/delete.png"
 
 const Message = (props) => {
+    let isYou = props.senderId === props.currentUserId
     const deleteMessage =(userId) =>{
         props.deleteMessage(userId)
         props.getMessagesList(props.userId)
         props.getMessagesList(props.userId)
     }
-
     return(
         <>
-        <div className={s.yes}>
-
+        <div className={isYou
+                ? s.yes
+                : s.no
+        }>
         <div className={s.messages}>
             <img className={s.img} src ={props.img} alt='' />
             <span onClick={()=>{deleteMessage(props.id)}} ><img className={s.dots} src={deletePng} alt = ""/></span>

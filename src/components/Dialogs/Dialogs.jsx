@@ -11,6 +11,7 @@ const Dialogs = (props) => {
                                                               getMessagesList ={props.getMessagesList} messages = {props.messages}/>)
     let messagesElements = props.messages.map(message => <Message getMessagesList ={props.getMessagesList} deleteMessage={props.deleteMessage}
                                                                   userId = {userId} viewed = {message.viewed}
+                                                                  senderId = {message.senderId} currentUserId = {props.currentUserId}
         message = {message.body} key = {message.id} id={message.id} />)
 
     const onSubmit = (formData) =>{
