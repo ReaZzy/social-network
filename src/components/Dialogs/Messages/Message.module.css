@@ -1,5 +1,4 @@
 .messages {
-    margin-left: 20px;
     min-width: 140px;
     margin-top: 6px;
     background-color: #567a9e;
@@ -22,6 +21,8 @@ a {
 }
 .yes {
     margin-left: 130px;
+    display: inline-block;
+    position: relative;
 }
 
 .yes img{
@@ -34,5 +35,22 @@ a {
     border: 2px solid #567a9e;
     background-color: #edeef0;
 
+}
+
+.yes:hover + .dots{
+    display:block;
+}
+
+.dots{
+    cursor: pointer;
+    margin-top: 2px;
+    padding-right: 10px;
+}
+.viewed{
+    padding-right: 16px;
+    border-radius: 100%;
+    background-color: #567a9e;
+    float: right;
+    margin-right: 10px;
 }
 

@@ -40,7 +40,7 @@ const Todo = (props) => {
                         <div className={s.todoItem}>
                             <span >
                             <input type={"checkbox"} checked={item.completed} onChange={() => {setCompleted(item.id)}} />
-                            &nbsp;
+                                &nbsp;
                             <strong className={s.id}>{index+1}</strong>
                             {item.title}
                             </span>

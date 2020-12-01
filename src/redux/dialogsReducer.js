@@ -1,4 +1,11 @@
-import {getDialogsAPI, getMessagesAPI, sendMessageAPI, startDialogAPI} from "../dal/api";
+import {
+    deleteMessageAPI,
+    getDialogsAPI,
+    getMessagesAPI,
+    sendMessageAPI,
+    showViewedAPI,
+    startDialogAPI
+} from "../dal/api";
 import {reset} from "redux-form"
 
 const DIALOGS_LOADING = "DIALOGS_LOADING"
@@ -51,10 +58,15 @@ export const getMessagesList = (userId) => async (dispatch) =>{
     let response = await  getMessagesAPI(userId)
     dispatch(getMessages(response.data.items))
     dispatch(messagesLoading(false))
+    console.log(response.data.items)
 }
 export const sendMessage = (userId, body) => async (dispatch) =>{
     await sendMessageAPI(userId, body)
     dispatch(reset("sendMessage"))
+}
+
+export const deleteMessage = (messageId) => async (dispatch) =>{
+    await deleteMessageAPI(messageId)
 }
 
 export default dialogsReducer

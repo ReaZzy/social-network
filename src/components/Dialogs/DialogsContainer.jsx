@@ -1,4 +1,4 @@
-import {getDialogsPage, getMessagesList, sendMessage} from "../../redux/dialogsReducer";
+import {deleteMessage, getDialogsPage, getMessagesList, sendMessage} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 import React, {PureComponent} from "react";
 import {connect} from "react-redux";
@@ -21,7 +21,7 @@ class DialogsContainer extends PureComponent{
         this.reGetDialogs()
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.props.messages.values !== prevProps.messages.values ) {
+        if(this.props.messages.length !== prevProps.messages.length ) {
             this.reGetDialogs()
         }
     }
@@ -29,6 +29,7 @@ class DialogsContainer extends PureComponent{
     render() {
         return <Dialogs {...this.props} messages = {this.props.messages} dialogs = {this.props.dialogs} dialogsLoading ={this.props.dialogsLoading}
                         getMessagesList = {this.props.getMessagesList} userId = {this.props.userId} messagesLoading={this.props.messagesLoading}
+                        deleteMessage = {this.props.deleteMessage}
         />
     }
 }
@@ -43,7 +44,8 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps,{sendMessage, getDialogsPage, getMessagesList}),
+    connect(mapStateToProps,{sendMessage,
+        getDialogsPage, getMessagesList, deleteMessage}),
     withRouter,
     withAuthRedirect,
 )(DialogsContainer)

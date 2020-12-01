@@ -71,6 +71,11 @@ export const sendMessageAPI = (userId, body) => {
     return instance.post(`dialogs/${userId}/messages`, {body})
 }
 
+export const deleteMessageAPI = (messageId) =>{
+    return instance.delete(`dialogs/messages/${messageId}`)
+}
+
+
 
 /// PROFILE
 export const savePhotoAPI = (image) =>{
