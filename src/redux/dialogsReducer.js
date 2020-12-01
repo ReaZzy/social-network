@@ -4,11 +4,13 @@ import {reset} from "redux-form"
 const DIALOGS_LOADING = "DIALOGS_LOADING"
 const GET_DIALOGS = "GET_DIALOGS"
 const GET_MESSAGES = "GET_MESSAGES"
+const SET_MESSAGES_LOADING = "dialogs/SET_MESSAGES_LOADING"
 
 let initialState = {
     dialogsData : [],
     messageData : [],
     dialogsLoading: true,
+    messagesLoading: false,
 }
 
 const dialogsReducer = (state = initialState, action) => {
@@ -19,6 +21,8 @@ const dialogsReducer = (state = initialState, action) => {
             return {...state, dialogsLoading: action.boolean}
         case GET_MESSAGES:
             return {...state, messageData: action.messageList.reverse()}
+        case SET_MESSAGES_LOADING:
+            return {...state, messagesLoading: action.boolean}
         default:
             return state
     }
@@ -28,6 +32,7 @@ const dialogsReducer = (state = initialState, action) => {
 
 export const getDialogs = (dialogs) => ({type: GET_DIALOGS, dialogs})
 export const dialogsLoading = (boolean) =>({type:DIALOGS_LOADING, boolean})
+export const messagesLoading = (boolean) =>({type:SET_MESSAGES_LOADING, boolean})
 export const getMessages = (messageList) => ({type:GET_MESSAGES , messageList})
 
 export const getDialogsPage = () => async (dispatch) => {
@@ -35,7 +40,6 @@ export const getDialogsPage = () => async (dispatch) => {
     let response = await getDialogsAPI()
     dispatch(getDialogs(response.data))
     dispatch(dialogsLoading(false))
-    console.log(response.data)
 }
 
 export const startDialog = (userId) => async (dispatch) => {
@@ -43,8 +47,10 @@ export const startDialog = (userId) => async (dispatch) => {
 }
 
 export const getMessagesList = (userId) => async (dispatch) =>{
+    dispatch(messagesLoading(true))
     let response = await  getMessagesAPI(userId)
     dispatch(getMessages(response.data.items))
+    dispatch(messagesLoading(false))
 }
 export const sendMessage = (userId, body) => async (dispatch) =>{
     await sendMessageAPI(userId, body)

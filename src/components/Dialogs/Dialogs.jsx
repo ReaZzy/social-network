@@ -8,10 +8,6 @@ import Preloader from "../common/Preloader/Preloader";
 const Dialogs = (props) => {
     let userId = props.match.params.userId
 
-    if (props.dialogsLoading){
-        return <Preloader/>
-    }
-
     let dialogsElements = props.dialogs.map(dialog => <Dialog id = {dialog.id} userName ={dialog.userName} photos = {dialog.photos.small}
                                                               getMessagesList ={props.getMessagesList} messages = {props.messages}/>)
     let messagesElements = props.messages.map(message => <Message message = {message.body} key = {message.id}/>)
@@ -27,12 +23,12 @@ const Dialogs = (props) => {
         <div className={s.content }>
             <div className={s.dialogs + "unselectable"}>
                 <div className={s.title }>Dialogs</div>
-                <div className={s.span}>{ dialogsElements }</div>
+                <div className={s.span}>{ props.dialogsLoading ? <Preloader/> : dialogsElements }</div>
             </div>
 
             <div className={s.messages}>
                 <div className={s.messag}>
-                { messagesElements }</div>
+                { props.messagesLoading? <Preloader/> : messagesElements }</div>
                 <div className={s.but}>
 
                     <SendMessageForm onSubmit ={onSubmit}/>

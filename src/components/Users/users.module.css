@@ -83,14 +83,6 @@ a{
     overflow-y: scroll;
     height: 650px;
 }
-.loading{
-    display: block;
-    position: absolute;
-    top:160px; right:930px ;
-    margin-left: 250px;
-    margin-right: auto;
-    width: 100px;
-}
 
 .button:disabled{
     opacity: 0.6;
