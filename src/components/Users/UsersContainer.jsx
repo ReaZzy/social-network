@@ -16,6 +16,7 @@ import {
     getTotalCount,
     getUsersState
 } from "../../redux/usersSelector";
+import {startDialog} from "../../redux/dialogsReducer";
 
 class UsersAPI extends React.Component {
     componentDidMount() {
@@ -33,6 +34,7 @@ class UsersAPI extends React.Component {
                              setFollow={this.props.setFollow} followLoading={this.props.followLoading}
                              setFollowLoading={this.props.setFollowLoading}
                              setUnfollow={this.props.setUnfollow}
+                             startDialog ={this.props.startDialog}
                     />}
 
             </>
@@ -53,7 +55,8 @@ let mapStateToProps = (state) => {
 }
 
 const UsersContainer = connect(mapStateToProps, {
-    setFollow, setUsers, setPageUsers, setTotalUsersCount, setLoading, setFollowLoading, setUsersPage, setPageU, setUnfollow
+    setFollow, setUsers, setPageUsers, setTotalUsersCount, setLoading, setFollowLoading, setUsersPage, setPageU, setUnfollow,
+    startDialog,
 
 })(UsersAPI)
 

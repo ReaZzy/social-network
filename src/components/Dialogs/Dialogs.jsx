@@ -11,23 +11,22 @@ const Dialogs = (props) => {
     if (props.dialogsLoading){
         return <Preloader/>
     }
-    if (props.messageLoading){
 
-        return <Preloader/>
-    }
-    let dialogsElements = props.dialogs.map(dialog => <Dialog id = {dialog.id} userName ={dialog.userName} getMessagesList ={props.getMessagesList} messages = {props.messages}/>)
+    let dialogsElements = props.dialogs.map(dialog => <Dialog id = {dialog.id} userName ={dialog.userName} photos = {dialog.photos.small}
+                                                              getMessagesList ={props.getMessagesList} messages = {props.messages}/>)
     let messagesElements = props.messages.map(message => <Message message = {message.body} key = {message.id}/>)
 
     const onSubmit = (formData) =>{
         props.sendMessage(userId, formData.message)
         props.getMessagesList(userId)
+        props.getMessagesList(userId)
     }
 
 
     return (
-        <div className={s.content}>
-            <div className={s.dialogs}>
-                <div className={s.title}>Dialogs</div>
+        <div className={s.content }>
+            <div className={s.dialogs + "unselectable"}>
+                <div className={s.title }>Dialogs</div>
                 <div className={s.span}>{ dialogsElements }</div>
             </div>
 

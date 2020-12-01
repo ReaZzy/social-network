@@ -1,24 +1,31 @@
-import {getDialogsPage, getMessagesList, sendMessage, startDialog} from "../../redux/dialogsReducer";
+import {getDialogsPage, getMessagesList, sendMessage} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
-import React from "react";
+import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
-class DialogsContainer extends React.Component{
-    componentDidMount() {
+class DialogsContainer extends PureComponent{
+    reGetDialogs = () =>{
         let userId = this.props.match.params.userId
         if (userId){
-            this.props.startDialog(userId)
             this.props.getMessagesList(userId)
         }
-
         if (this.props.dialogs.length < 1) {
             this.props.getDialogsPage()
         }
-
     }
+
+    componentDidMount() {
+        this.reGetDialogs()
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.props.messages.values !== prevProps.messages.values ) {
+            this.reGetDialogs()
+        }
+    }
+
     render() {
         return <Dialogs {...this.props} messages = {this.props.messages} dialogs = {this.props.dialogs} dialogsLoading ={this.props.dialogsLoading}
                         getMessagesList = {this.props.getMessagesList} userId = {this.props.userId} messageLoading={this.props.messageLoading}
@@ -36,7 +43,7 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps,{sendMessage, startDialog, getDialogsPage, getMessagesList}),
+    connect(mapStateToProps,{sendMessage, getDialogsPage, getMessagesList}),
     withRouter,
     withAuthRedirect,
 )(DialogsContainer)

@@ -35,6 +35,7 @@ export const getDialogsPage = () => async (dispatch) => {
     let response = await getDialogsAPI()
     dispatch(getDialogs(response.data))
     dispatch(dialogsLoading(false))
+    console.log(response.data)
 }
 
 export const startDialog = (userId) => async (dispatch) => {

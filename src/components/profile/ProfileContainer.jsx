@@ -1,15 +1,13 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfile, getStatus, updateStatus} from "../../redux/profileReducer";
+import {getProfile, getStatus, savePhoto, updateStatus} from "../../redux/profileReducer";
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 class ProfileContainer extends React.Component{
 
-
-
-    componentDidMount() {
+    reGetProfile = () =>{
         let userId = this.props.match.params.userId
         if (this.props.isAuth && !userId) {
             userId = this.props.userId
@@ -19,11 +17,23 @@ class ProfileContainer extends React.Component{
         this.props.getStatus(userId)
     }
 
+    componentDidMount() {
+        this.reGetProfile()
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.reGetProfile()
+        }
+    }
+
     render() {
         return (
             <>
-                <Profile {...this.props}  userId = {this.userId}
-                         profileInfo={this.props.profileInfo} status = {this.props.status} updateStatus = {this.props.updateStatus}/>
+                {/*eslint-disable-next-line*/}
+                <Profile {...this.props}  userId = {this.userId} isOwner = {!this.props.match.params.userId || this.props.userId == this.props.match.params.userId} savePhoto = {this.props.savePhoto}
+                         profileInfo={this.props.profileInfo} status = {this.props.status} updateStatus = {this.props.updateStatus}
+                         photoLoading = {this.props.photoLoading}
+                />
             </>
         );
     }
@@ -33,10 +43,11 @@ const mapStateToProps = (state) => ({
     profileInfo: state.profilePage.profileInfo,
     status: state.profilePage.status,
     isAuth:state.auth.isAuth,
-    userId: state.auth.id
+    userId: state.auth.id,
+    photoLoading: state.profilePage.photoLoading,
 })
 export default compose(
-    connect(mapStateToProps, {getProfile, getStatus, updateStatus}),
+    connect(mapStateToProps, {getProfile, getStatus, updateStatus, savePhoto}),
     withRouter,
     withAuthRedirect,
 )(ProfileContainer)

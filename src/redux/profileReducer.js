@@ -1,10 +1,12 @@
-import {getProfileInfo, getStatusAPI, updateStatusAPI} from "../dal/api";
+import {getProfileInfo, getStatusAPI, savePhotoAPI, updateStatusAPI} from "../dal/api";
 import {reset} from "redux-form";
 
 const ADD_POST = "ADD-POST"
 const SET_PROFILE = "SET_PROFILE"
 const SET_STATUS = "SET_STATUS"
 const DELETE_POST = "DELETE_POST"
+const SAVE_PHOTO_DONE = "profile/SAVE_PHOTO_DONE"
+const SET_PHOTO_LOADING = "profile/SET_PHOTO_LOADING"
 
 let initialState = {
         postData : [
@@ -59,6 +61,7 @@ let initialState = {
         ],
         profileInfo : null,
         status: "",
+        photoLoading: false,
     }
 
 const profileReducer = (state=initialState, action) => {
@@ -84,6 +87,12 @@ const profileReducer = (state=initialState, action) => {
             // eslint-disable-next-line
             return {...state, postData: state.postData.filter(id=> id.id != action.id)}
         }
+        case SAVE_PHOTO_DONE: {
+            return {...state, profileInfo: {...state.profileInfo, photos: action.file}}
+        }
+        case SET_PHOTO_LOADING:{
+            return {...state, photoLoading: action.boolean}
+        }
         default: {
             return state
         }
@@ -95,7 +104,9 @@ const profileReducer = (state=initialState, action) => {
 export const addPost1 =(postText)=> ({type: ADD_POST, postText})
 export const setProfile = (profileInfo) => ({type: SET_PROFILE, profileInfo})
 export const setStatus = (status) => ({type: SET_STATUS, status})
+export const savePhotoDone = (file) => ({type: SAVE_PHOTO_DONE, file})
 export const deletePost = (id) => ({type: DELETE_POST, id})
+const setPhotoLoading = (boolean) => ({type:SET_PHOTO_LOADING, boolean})
 export const getStatus = (userId) => (dispatch) =>{
     getStatusAPI(userId).then(response =>{
         dispatch(setStatus(response.data))
@@ -118,6 +129,15 @@ export const getProfile = (userId) => async (dispatch) =>{
 export const addPost = (postText) =>  (dispatch) =>{
     dispatch(addPost1(postText))
     dispatch(reset('postForm'))
+}
+
+export const savePhoto = (file) => async (dispatch) =>{
+    dispatch(setPhotoLoading(true))
+    let response = await savePhotoAPI(file)
+    if(response.data.resultCode === 0){
+        dispatch(savePhotoDone(response.data.data.photos))
+        dispatch(setPhotoLoading(false))
+    }
 }
 
 export default profileReducer

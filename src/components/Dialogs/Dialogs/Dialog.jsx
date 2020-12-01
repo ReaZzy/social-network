@@ -13,7 +13,7 @@ const Dialog = (props) => {
         <div>
             <NavLink to={"/messages/" + props.id} className={s.dialog} activeClassName={s.active} onClick = {getMessagesList}>
 
-                <img src = {defaultUserImg} alt = '' className={s.f_img}/>
+                <img src = {props.photos || defaultUserImg} alt = '' className={s.f_img}/>
                 {props.userName}
             </NavLink>
             <br/>

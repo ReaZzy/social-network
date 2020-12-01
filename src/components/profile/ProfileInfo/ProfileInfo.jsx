@@ -8,6 +8,14 @@ const ProfileInfo = (props) => {
     if (!props.profileInfo){
         return <Preloader/>
     }
+    const onSetPhoto = (e) =>{
+        if(e.target.files.length){
+            props.savePhoto(e.target.files[0])
+        }
+    }
+    if(props.photoLoading){
+        return <Preloader/>
+    }
 
     return (
         <div>
@@ -17,7 +25,15 @@ const ProfileInfo = (props) => {
                 width="160px"
                 alt=""
             />
+
+            {props.isOwner && <details className={s.upload}>
+                <summary className={s.unselectable + " " + s.summary}>Upload avatar</summary>
+                <input type={"file"} onChange={onSetPhoto} className={s.inputPhoto}/>
+            </details>
+            }
+
             <div className={s.text}>
+
                 <h2>{props.profileInfo.fullName !==null ? props.profileInfo.fullName : "‎"}</h2>
                 <ProfileStatus isAuth = {props.isAuth} status = {props.status} updateStatus = {props.updateStatus} userId = {props.userId}/>
                 <br/>

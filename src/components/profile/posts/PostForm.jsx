@@ -12,7 +12,7 @@ const PostForm = (props) => {
         <form onSubmit={props.handleSubmit}>
             <Field component={TextareaProfile} name={"postMessage"} className={s.textarea} rows="3" cols="110" validate = {[required, minLength1, maxLength300]}/>
             <p className={s.cominput}>
-                <button className="ui tiny primary button" >Save</button>
+                <button className="ui tiny primary button unselectable" >Save</button>
             </p>
 
         </form>

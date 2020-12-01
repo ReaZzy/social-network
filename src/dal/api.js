@@ -70,3 +70,15 @@ export const getMessagesAPI = (userId, page = 1, count =15) =>{
 export const sendMessageAPI = (userId, body) => {
     return instance.post(`dialogs/${userId}/messages`, {body})
 }
+
+
+/// PROFILE
+export const savePhotoAPI = (image) =>{
+    const formData = new FormData()
+    formData.append("image", image)
+    return instance.put(`profile/photo`, formData, {
+        headers:{
+            'Content-type': 'multipart/form-data'
+        }
+    })
+}

@@ -18,4 +18,32 @@
     margin-left: 20px;
 }
 
+.inputPhoto{
+    text-decoration: none;
+    background-color: #4a76a8;
+    color: #edeef0;
+}
 
+.summary{
+    outline: none;
+}
+
+.unselectable {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+.upload {
+    position: absolute;
+    margin-top: 180px;
+    margin-left: 12px;
+}
+
+input.inputPhoto{
+    outline: none;
+    text-decoration: none;
+}
