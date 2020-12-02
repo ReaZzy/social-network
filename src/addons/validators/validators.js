@@ -9,5 +9,5 @@ export const required = (value) =>{
 }
 export const maxLengthValidator = (maxLength) => (value) =>{
     if (value && value.length <= maxLength) return undefined
-    return "Max lenght - 300 symbols"
+    return `Max lenght - ${maxLength} symbols`
 }

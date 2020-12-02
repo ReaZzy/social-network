@@ -9,6 +9,7 @@ const Posts = React.memo(props => {
     let postsElemets = [...props.data].reverse().map(post => {
         return (
             <Post
+                key = {post.id}
                 author_image={post.author_image}
                 author={post.author}
                 text={post.text}

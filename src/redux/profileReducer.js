@@ -1,5 +1,5 @@
-import {getProfileInfo, getStatusAPI, savePhotoAPI, updateStatusAPI} from "../dal/api";
-import {reset} from "redux-form";
+import {getProfileInfo, getStatusAPI, savePhotoAPI, saveProfileAPI, updateStatusAPI} from "../dal/api";
+import {reset, stopSubmit} from "redux-form";
 
 const ADD_POST = "ADD-POST"
 const SET_PROFILE = "SET_PROFILE"
@@ -11,7 +11,7 @@ const SET_PHOTO_LOADING = "profile/SET_PHOTO_LOADING"
 let initialState = {
         postData : [
             {
-                id: "5",
+                id: "6",
                 author_image: "https://semantic-ui.com/images/avatar/small/stevie.jpg",
                 author: "Stevie Folls",
                 text: "ddd DAS",
@@ -60,6 +60,7 @@ let initialState = {
             },
         ],
         profileInfo : null,
+        profileInfoLoading: false,
         status: "",
         photoLoading: false,
     }
@@ -129,6 +130,18 @@ export const getProfile = (userId) => async (dispatch) =>{
 export const addPost = (postText) =>  (dispatch) =>{
     dispatch(addPost1(postText))
     dispatch(reset('postForm'))
+}
+
+export const saveProfile = (profile,userId) =>  async (dispatch) =>{
+    let response = await saveProfileAPI(profile)
+    if(response.data.resultCode === 0){
+        dispatch(getProfile(userId))
+        dispatch(reset('profileData'))
+    }else{
+        dispatch(stopSubmit("profileData", {_error: response.data.messages[0]}))
+        return Promise.reject(response.data.messages[0])
+    }
+
 }
 
 export const savePhoto = (file) => async (dispatch) =>{

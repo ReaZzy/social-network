@@ -1,0 +1,27 @@
+.form{
+    margin-left: 380px;
+    position: absolute;
+}
+.save{
+    position: absolute;
+    width: 100px;
+    margin-top: -129px;
+    margin-left: 200px;
+    text-decoration: none;
+    background-color: #567a9e;
+    outline: none;
+    padding: 10px;
+    border: none;
+    color: #282c34;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #ebecee;
+}
+.save:hover{
+    background-color: #4CAF50;
+    transition: 0.1s;
+
+}

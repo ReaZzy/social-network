@@ -7,7 +7,7 @@ import Preloader from "../common/Preloader/Preloader";
 
 const Dialogs = (props) => {
     let userId = props.match.params.userId
-    let dialogsElements = props.dialogs.map(dialog => <Dialog id = {dialog.id} userName ={dialog.userName} photos = {dialog.photos.small}
+    let dialogsElements = props.dialogs.map(dialog => <Dialog id = {dialog.id} userName ={dialog.userName} photos = {dialog.photos.small} key = {dialog.id}
                                                               getMessagesList ={props.getMessagesList} messages = {props.messages}/>)
     let messagesElements = props.messages.map(message => <Message getMessagesList ={props.getMessagesList} deleteMessage={props.deleteMessage}
                                                                   userId = {userId} viewed = {message.viewed}

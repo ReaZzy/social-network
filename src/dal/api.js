@@ -4,7 +4,7 @@ import * as axios from "axios";
 const instance = axios.create({
     withCredentials: true,
     headers: {
-        "API-KEY": "573ba22f-dccc-4be4-a973-aa4ac08f5016",
+        "API-KEY": "e4ab732c-d4b7-4090-ae44-56e101c6d884",
     },
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
 })
@@ -63,7 +63,7 @@ export const startDialogAPI = (userId) =>{
     return instance.put(`dialogs/` + userId)
 }
 
-export const getMessagesAPI = (userId, page = 1, count =15) =>{
+export const getMessagesAPI = (userId, page = 1, count =20) =>{
     return instance.get(`dialogs/${userId}/messages/?page=${page}&count=${count}`)
 }
 
@@ -86,4 +86,8 @@ export const savePhotoAPI = (image) =>{
             'Content-type': 'multipart/form-data'
         }
     })
+}
+
+export const saveProfileAPI = (profile) =>{
+    return instance.put("profile/", profile)
 }

@@ -3,7 +3,6 @@ import {
     getDialogsAPI,
     getMessagesAPI,
     sendMessageAPI,
-    showViewedAPI,
     startDialogAPI
 } from "../dal/api";
 import {reset} from "redux-form"

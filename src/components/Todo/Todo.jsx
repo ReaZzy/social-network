@@ -27,7 +27,6 @@ const Todo = (props) => {
     let onSubmit = (formData) => {
         setTodos(todos.concat([{id: todos.length + 1, completed: false, title : formData.todoItem, }]))
         formData.todoItem = ""
-        console.log(todos)
     }
     return (
         <div>
@@ -36,7 +35,7 @@ const Todo = (props) => {
                 <TodoForm {...props} onSubmit = {onSubmit}/>
                 <ul className={s.ul}>
                 {
-                    todos.map((item, index) => <li className={item.completed? s.done : ""}>
+                    todos.map((item, index) => <li className={item.completed? s.done : ""} key = {item.id}>
                         <div className={s.todoItem}>
                             <span >
                             <input type={"checkbox"} checked={item.completed} onChange={() => {setCompleted(item.id)}} />

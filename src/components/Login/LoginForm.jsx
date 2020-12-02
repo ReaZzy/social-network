@@ -9,11 +9,11 @@ import {InputLogin} from "../common/Textarea";
 const LoginForm = (props) =>{
     return(
         <form onSubmit={props.handleSubmit}>
-            <label for={"email"}>E-mail</label>
+            <label>E-mail</label>
             <div>
                 <Field id ="email" placeholder={"Email"} name = {"email"} component = {InputLogin} type={"email"} disabled={props.isAuth} className = {s.input} validate = {[required]}/>
             </div>
-            <label for={"password"}>Password</label>
+            <label>Password</label>
             <div>
                 <Field id={"password"} placeholder={"Password"} className = {s.input} name = {"password"} component = {InputLogin} type={"password"} disabled={props.isAuth} data-validate ="passsword" validate = {[required]}/>
             </div>
