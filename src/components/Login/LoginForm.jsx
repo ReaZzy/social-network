@@ -26,6 +26,8 @@ const LoginForm = (props) =>{
             </div>
             }
 
+            {props.needCaptcha &&<div><><img src={props.captchaUrl?props.captchaUrl:""} width={"200px"} alt=""/><Field placeholder={"captcha"} component={InputLogin} name={"captcha"} validate={[required]}/></></div>}
+
 
             <div>
                 <button disabled={props.isAuth} className={s.button}>Login</button>

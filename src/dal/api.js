@@ -45,8 +45,12 @@ export const updateStatusAPI = (status) =>{
     return instance.put('profile/status/', {status})
 }
 
-export const loginAPI = (email, password, rememberMe = false) =>{
-    return instance.post('auth/login', {email, password, rememberMe})
+export const loginAPI = (email, password, rememberMe = false, captcha = false) =>{
+    return instance.post('auth/login', {email, password, rememberMe, captcha})
+}
+
+export const getCapthaAPI = () =>{
+    return instance.get("/security/get-captcha-url")
 }
 export const exitAPI = () =>{
     return instance.delete('auth/login')
