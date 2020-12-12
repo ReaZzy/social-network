@@ -1,0 +1,19 @@
+
+.searchTextArea{
+    resize: none;
+    border-radius: 15px;
+    margin-right: 15px;
+    outline: none;
+    padding: 10px;
+}
+.search{
+    display: flex;
+    margin-bottom: 20px;
+
+}
+.searchButton{
+    cursor: pointer;
+    margin-top: 7px;
+    border: none;
+    outline: none;
+}

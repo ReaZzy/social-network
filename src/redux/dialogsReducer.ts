@@ -6,6 +6,8 @@ import {
     startDialogAPI
 } from "../dal/api";
 import {reset} from "redux-form"
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 const DIALOGS_LOADING = "DIALOGS_LOADING"
 const GET_DIALOGS = "GET_DIALOGS"
@@ -13,13 +15,15 @@ const GET_MESSAGES = "GET_MESSAGES"
 const SET_MESSAGES_LOADING = "dialogs/SET_MESSAGES_LOADING"
 
 let initialState = {
-    dialogsData : [],
-    messageData : [],
+    dialogsData : [] as any,
+    messageData : [] as any,
     dialogsLoading: true,
     messagesLoading: false,
 }
 
-const dialogsReducer = (state = initialState, action) => {
+export type initialStateType = typeof initialState
+
+const dialogsReducer = (state = initialState, action:ActionsType):initialStateType => {
     switch (action.type) {
         case GET_DIALOGS:
             return {...state, dialogsData: action.dialogs}
@@ -36,35 +40,57 @@ const dialogsReducer = (state = initialState, action) => {
 
 /*ACTION CREATORS FOR DIALOGS/MESSAGES*/
 
-export const getDialogs = (dialogs) => ({type: GET_DIALOGS, dialogs})
-export const dialogsLoading = (boolean) =>({type:DIALOGS_LOADING, boolean})
-export const messagesLoading = (boolean) =>({type:SET_MESSAGES_LOADING, boolean})
-export const getMessages = (messageList) => ({type:GET_MESSAGES , messageList})
+type ActionsType = getDialogsType|dialogsLoadingType|messagesLoadingType|getMessagesType
 
-export const getDialogsPage = () => async (dispatch) => {
+type getDialogsType = {
+    type: typeof GET_DIALOGS
+    dialogs: any
+}
+type dialogsLoadingType = {
+    type: typeof DIALOGS_LOADING
+    boolean: boolean
+}
+type messagesLoadingType = {
+    type: typeof SET_MESSAGES_LOADING
+    boolean: boolean
+}
+type getMessagesType = {
+    type: typeof GET_MESSAGES
+    messageList:any
+}
+
+
+export const getDialogs = (dialogs:any):getDialogsType => ({type: GET_DIALOGS, dialogs})
+export const dialogsLoading = (boolean:boolean):dialogsLoadingType =>({type:DIALOGS_LOADING, boolean})
+export const messagesLoading = (boolean:boolean):messagesLoadingType =>({type:SET_MESSAGES_LOADING, boolean})
+export const getMessages = (messageList:any):getMessagesType => ({type:GET_MESSAGES , messageList})
+
+export const getDialogsPage = ():ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch) => {
     dispatch(dialogsLoading(true))
     let response = await getDialogsAPI()
     dispatch(getDialogs(response.data))
     dispatch(dialogsLoading(false))
 }
 
-export const startDialog = (userId) => async (dispatch) => {
+export const startDialog = (userId:number):ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch) => {
     await startDialogAPI(userId)
 }
 
-export const getMessagesList = (userId) => async (dispatch) =>{
+export const getMessagesList = (userId:number):ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch) =>{
     dispatch(messagesLoading(true))
     let response = await  getMessagesAPI(userId)
     dispatch(getMessages(response.data.items))
     dispatch(messagesLoading(false))
 }
-export const sendMessage = (userId, body) => async (dispatch) =>{
+export const sendMessage = (userId:number, body:string):ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch) =>{
     await sendMessageAPI(userId, body)
+    // @ts-ignore
     dispatch(reset("sendMessage"))
 }
 
-export const deleteMessage = (messageId) => async (dispatch) =>{
+export const deleteMessage = (messageId:string):ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch) =>{
     await deleteMessageAPI(messageId)
 }
+
 
 export default dialogsReducer

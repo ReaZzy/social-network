@@ -1,4 +1,6 @@
 import {followAPI, getUsers, unfollowAPI} from "../dal/api";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
@@ -7,23 +9,29 @@ const SET_PAGE_USERS = "SET_PAGE_USERS"
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT"
 const SET_LOADING = "SET_LOADING"
 const SET_FOLLOW_LOADING = "SET_FOLLOW_LOADING"
+const SET_CURRENT_TERM = "SET_CURRENT_TERM"
 const SET_CURRENT_PAGE = "users/SET_CURRENT_PAGE"
 
 let initialState = {
-    users: [],
+    users: [] as any,
     count: 7,
-    totalCount: null,
+    totalCount: null as number | null,
     currentPage: 1,
     isLoading: true,
-    followLoading: []
+    followLoading: [] as Array<number>,
+    currentTerm: "" as string
 }
 
-const usersReducer = (state = initialState, action) => {
+export type initialStateType = typeof initialState
+
+
+const usersReducer = (state = initialState, action:ActionsType):initialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => {
+                users: state.users.map(// @ts-ignore
+                    u => {
                     if (u.id === action.userId) {
                         return {...u, followed: true}
                     }
@@ -33,7 +41,8 @@ const usersReducer = (state = initialState, action) => {
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map(u => {
+                users: state.users.map( // @ts-ignore
+                u => {
                     if (u.id === action.userId) {
                         return {...u, followed: false}
                     }
@@ -68,42 +77,87 @@ const usersReducer = (state = initialState, action) => {
             return {
                 ...state, currentPage: action.currentPage
             }
+        case SET_CURRENT_TERM:
+            return {...state, currentTerm: action.currentTerm}
         default:
             return state
 
     }
 }
 
-const follow = (userId) => ({type: FOLLOW, userId})
-const unfollow = (userId) => ({type: UNFOLLOW, userId})
-const setCurrentPage = (currentPage)=> ({type: SET_CURRENT_PAGE, currentPage})
-export const setUsers = (users) => ({type: SET_USERS, users})
-export const setPageUsers = (currentPage) => ({type: SET_PAGE_USERS, currentPage})
-export const setTotalUsersCount = (totalUsers) => ({type: SET_TOTAL_USERS_COUNT, totalUsers})
-export const setLoading = (isLoading) => ({type: SET_LOADING, isLoading})
-export const setFollowLoading = (isFollowLoading, id) => ({type: SET_FOLLOW_LOADING, isFollowLoading, id})
+type ActionsType = followType|unfollowType|setCurrentPageType|setUsersType|setPageUsersType|setTotalUsersCountType|setLoadingType|setFollowLoadingType|setCurrentTermType
 
-export const setUsersPage = (length, count, currentPage) => async (dispatch) => {
+type setCurrentTermType = {
+    type: typeof SET_CURRENT_TERM
+    currentTerm: string
+}
+
+type followType = {
+    type: typeof FOLLOW
+    userId: number
+}
+type unfollowType = {
+    type: typeof UNFOLLOW
+    userId: number
+}
+type setCurrentPageType = {
+    type: typeof SET_CURRENT_PAGE
+    currentPage: number
+}
+type setUsersType = {
+    type: typeof SET_USERS
+    users: any
+}
+type setPageUsersType = {
+    type: typeof SET_PAGE_USERS
+    currentPage: number
+}
+type setTotalUsersCountType = {
+    type: typeof SET_TOTAL_USERS_COUNT
+    totalUsers: number
+}
+type setLoadingType = {
+    type: typeof SET_LOADING
+    isLoading: boolean
+}
+type setFollowLoadingType = {
+    type: typeof SET_FOLLOW_LOADING
+    isFollowLoading: boolean
+    id: number
+}
+
+const setCurrentTerm = (currentTerm:string):setCurrentTermType => ({type:SET_CURRENT_TERM, currentTerm})
+const follow = (userId:number):followType => ({type: FOLLOW, userId})
+const unfollow = (userId:number):unfollowType => ({type: UNFOLLOW, userId})
+const setCurrentPage = (currentPage:number):setCurrentPageType=> ({type: SET_CURRENT_PAGE, currentPage})
+export const setUsers = (users:any):setUsersType => ({type: SET_USERS, users})
+export const setPageUsers = (currentPage:number):setPageUsersType => ({type: SET_PAGE_USERS, currentPage})
+export const setTotalUsersCount = (totalUsers:number):setTotalUsersCountType => ({type: SET_TOTAL_USERS_COUNT, totalUsers})
+export const setLoading = (isLoading:boolean):setLoadingType => ({type: SET_LOADING, isLoading})
+export const setFollowLoading = (isFollowLoading:boolean, id:number):setFollowLoadingType => ({type: SET_FOLLOW_LOADING, isFollowLoading, id})
+
+export const setUsersPage = (length:number, count:number, currentPage:number, term:string=""):ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch) => {
     if (length === 0) {
         dispatch(setLoading(true))
-        let data = await  getUsers(count, currentPage)
+        dispatch(setCurrentTerm(term))
+        let data = await  getUsers(count, currentPage, term)
+        dispatch(setTotalUsersCount(data.totalCount))
         dispatch(setLoading(false))
         dispatch(setCurrentPage(currentPage))
         dispatch(setPageUsers(currentPage))
         dispatch(setUsers(data.items))
-        dispatch(setTotalUsersCount(data.totalCount))
     }
 }
-export const setPageU = (count = 7, p) => async (dispatch) => {
+export const setPageU = (count = 7, p:number, term:string=""):ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch) => {
     dispatch(setPageUsers(p))
     dispatch(setLoading(true))
-    let data = await getUsers(count, p)
+    dispatch(setCurrentTerm(term))
+    let data = await getUsers(count, p, term)
     dispatch(setLoading(false))
     dispatch(setUsers(data.items))
-
 }
 
-export const setFollow = (id) => async (dispatch) =>{
+export const setFollow = (id:number):ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch) =>{
     dispatch(setFollowLoading(true, id))
     let data = await unfollowAPI(id)
     if (data.resultCode === 0) {
@@ -112,7 +166,7 @@ export const setFollow = (id) => async (dispatch) =>{
     }
 }
 
-export const setUnfollow = (id) => async (dispatch) =>{
+export const setUnfollow = (id:number):ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch) =>{
     dispatch(setFollowLoading(true, id))
     let data = await followAPI(id)
     if (data.resultCode === 0) {

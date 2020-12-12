@@ -4,3 +4,4 @@ export const getTotalCount = (state) => {return state.users.totalCount}
 export const getCount = (state) => {return state.users.count}
 export const getCurrentPage = (state) => {return state.users.currentPage}
 export const getSsLoading = (state) => {return state.users.isLoading}
+export const getCurrentTerm = (state) => {return state.users.currentTerm}
